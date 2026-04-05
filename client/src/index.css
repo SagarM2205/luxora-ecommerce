@@ -1724,6 +1724,17 @@ select.form-input {
   .admin-grid, .products-grid {
     grid-template-columns: 1fr;
   }
+  .hero-buttons {
+    flex-direction: column;
+    width: 100%;
+  }
+  .hero-buttons .btn {
+    width: 100%;
+  }
+  .btn-lg {
+    padding: 14px 24px;
+    font-size: 0.95rem;
+  }
 }
 
 /* ─── PULSE ANIMATION for success screen ───────────── */
