@@ -136,8 +136,8 @@ ul { list-style: none; }
   background: var(--bg-glass);
   backdrop-filter: blur(20px);
   border-bottom: 1px solid var(--border);
-  padding: 0 20px;
-  height: 70px;
+  padding: 10px 20px;
+  min-height: 70px;
   display: flex;
   align-items: center;
 }
@@ -1642,10 +1642,84 @@ select.form-input {
 }
 
 /* ─── MOBILE: hide navbar search ───────────────────── */
+/* ─── COMPREHENSIVE RESPONSIVE DESIGN (MOBILE) ───────────── */
+@media (max-width: 992px) {
+  .hero-slide {
+    flex-direction: column;
+    padding: 60px 24px;
+    height: auto;
+    text-align: center;
+  }
+  .hero-content {
+    align-items: center;
+  }
+  .product-split,
+  .cart-split,
+  .checkout-container {
+    grid-template-columns: 1fr;
+  }
+  .admin-charts {
+    grid-template-columns: 1fr; /* Stack graphs vertically */
+  }
+}
+
+@media (max-width: 768px) {
+  .bento-grid {
+    grid-template-columns: 1fr;
+    grid-template-rows: auto;
+  }
+  .bento-card {
+    min-height: 250px;
+  }
+  .navbar-inner, .navbar-links {
+    gap: 12px;
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+  .navbar-logo {
+    font-size: 1.2rem;
+  }
+  .footer-grid {
+    grid-template-columns: 1fr;
+    text-align: center;
+    gap: 32px;
+  }
+  .newsletter-form {
+    flex-direction: column;
+  }
+  .table-container {
+    overflow-x: auto;
+  }
+  .admin-grid, .products-grid {
+    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+  }
+  h1 { font-size: 2rem; }
+  h2 { font-size: 1.5rem; }
+  .page { padding: 20px 0; }
+  .container { padding: 0 16px; }
+  .checkout-step-header { flex-wrap: wrap; }
+}
+
 @media (max-width: 640px) {
   .navbar-search { display: none; }
   .order-stepper { gap: 4px; }
   .order-step-label { font-size: 0.65rem; }
+  .cart-item {
+    flex-direction: column;
+    text-align: center;
+  }
+  .cart-item-actions {
+    width: 100%;
+    justify-content: center;
+    margin-top: 12px;
+  }
+  .order-card-header {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+  .admin-grid, .products-grid {
+    grid-template-columns: 1fr;
+  }
 }
 
 /* ─── PULSE ANIMATION for success screen ───────────── */
