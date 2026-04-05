@@ -1,6 +1,8 @@
 const Order = require('../models/Order');
 const Cart = require('../models/Cart');
 const Coupon = require('../models/Coupon');
+const User = require('../models/User');
+const Product = require('../models/Product');
 const Razorpay = require('razorpay');
 const crypto = require('crypto');
 
@@ -247,7 +249,7 @@ exports.getDashboardStats = async (req, res, next) => {
   try {
     const orders = await Order.find();
     
-    const totalSales = orders.reduce((sum, order) => {
+    const totalRevenue = orders.reduce((sum, order) => {
       // Only count confirmed/shipped/delivered orders
       if (['confirmed', 'processing', 'shipped', 'delivered'].includes(order.status)) {
         return sum + order.totalPrice;
@@ -256,14 +258,20 @@ exports.getDashboardStats = async (req, res, next) => {
     }, 0);
 
     const pendingOrders = orders.filter(o => o.status === 'pending').length;
+    const totalUsers = await User.countDocuments();
+    const totalProducts = await Product.countDocuments();
+    const recentOrders = await Order.find().sort({ createdAt: -1 }).limit(10).populate('user', 'name');
 
     res.json({
       success: true,
       stats: {
         totalOrders: orders.length,
-        totalSales,
-        pendingOrders
-      }
+        totalRevenue,
+        pendingOrders,
+        totalUsers,
+        totalProducts
+      },
+      recentOrders
     });
   } catch (error) {
     next(error);
