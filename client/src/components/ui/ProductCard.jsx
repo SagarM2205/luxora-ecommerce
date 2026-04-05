@@ -7,35 +7,35 @@ import useCartStore from '../../store/useCartStore';
 import useAuthStore from '../../store/useAuthStore';
 import api from '../../services/api';
 import OptimizedImage from '../common/OptimizedImage';
+import useWishlistStore from '../../store/useWishlistStore';
 
 const FALLBACK_IMAGE = 'https://images.unsplash.com/photo-1441986300917-64674bd600d8?w=500';
 
 const ProductCard = memo(function ProductCard({ product }) {
   const navigate = useNavigate();
-  const [wishlisted, setWishlisted] = useState(false);
+  const { toggleWishlist, isInWishlist } = useWishlistStore();
+  const wishlisted = isInWishlist(product._id);
   const [addingToCart, setAddingToCart] = useState(false);
   const discount = getDiscount(product.mrp, product.price);
   const { addToCart } = useCartStore();
   const { isAuthenticated } = useAuthStore();
 
   const handleWishlist = async (e) => {
-    e.stopPropagation(); // Don't navigate to product detail
+    e.stopPropagation();
     if (!isAuthenticated) {
       toast('Please login to save to wishlist', { icon: '🔐' });
       return navigate('/login');
     }
+    
     try {
-      if (wishlisted) {
-        await api.delete(`/wishlist/${product._id}`);
-        setWishlisted(false);
-        toast.success('Removed from wishlist');
-      } else {
-        await api.post('/wishlist', { productId: product._id });
-        setWishlisted(true);
+      const result = await toggleWishlist(product._id);
+      if (result.isWishlisted) {
         toast.success('Saved to wishlist ❤️');
+      } else {
+        toast.success('Removed from wishlist');
       }
     } catch (err) {
-      toast.error('Failed to update wishlist');
+      toast.error(err.response?.data?.message || 'Failed to update wishlist');
     }
   };
 

@@ -6,6 +6,7 @@ import Footer from './components/layout/Footer';
 import useAuthStore from './store/useAuthStore';
 import useThemeStore from './store/useThemeStore';
 import useCartStore from './store/useCartStore';
+import useWishlistStore from './store/useWishlistStore';
 
 const AdminDashboard = lazy(() => import('./pages/admin/AdminDashboard'));
 const AdminProducts = lazy(() => import('./pages/admin/AdminProducts'));
@@ -27,6 +28,7 @@ function App() {
   const loading = useAuthStore((s) => s.loading);
   const theme = useThemeStore((s) => s.theme);
   const fetchCart = useCartStore((s) => s.fetchCart);
+  const fetchWishlist = useWishlistStore((s) => s.fetchWishlist);
 
   useEffect(() => {
     document.documentElement.setAttribute('data-theme', theme);
@@ -34,7 +36,10 @@ function App() {
   }, []);
 
   useEffect(() => {
-    if (isAuthenticated) fetchCart();
+    if (isAuthenticated) {
+      fetchCart();
+      fetchWishlist();
+    }
   }, [isAuthenticated]);
 
   if (loading) {

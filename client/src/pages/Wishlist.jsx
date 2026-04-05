@@ -4,32 +4,18 @@ import { Heart, Trash2, ShoppingBag } from 'lucide-react';
 import toast from 'react-hot-toast';
 import api from '../services/api';
 import useCartStore from '../store/useCartStore';
+import useWishlistStore from '../store/useWishlistStore';
 import { formatPrice } from '../utils/formatters';
 
 export default function Wishlist() {
-  const [wishlist, setWishlist] = useState([]);
-  const [loading, setLoading] = useState(true);
+  const { wishlist, loading, toggleWishlist } = useWishlistStore();
   const addToCart = useCartStore(s => s.addToCart);
 
-  const fetchWishlist = async () => {
-    try {
-      const { data } = await api.get('/wishlist');
-      setWishlist(data.wishlist.products || []);
-    } catch (err) {
-      console.error('Failed to load wishlist', err);
-    } finally {
-      setLoading(false);
-    }
-  };
 
-  useEffect(() => {
-    fetchWishlist();
-  }, []);
 
   const removeFromWishlist = async (productId) => {
     try {
-      await api.delete(`/wishlist/${productId}`);
-      setWishlist(wishlist.filter(product => product._id !== productId));
+      await toggleWishlist(productId);
       toast.success('Removed from wishlist');
     } catch (err) {
       toast.error('Failed to remove item');
