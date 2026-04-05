@@ -1277,7 +1277,7 @@ ul { list-style: none; }
 /* ─── HERO CAROUSEL ─────────────────────────────────── */
 .hero-carousel {
   position: relative;
-  height: 480px;
+  min-height: 480px;
   overflow: hidden;
 }
 
@@ -1287,13 +1287,16 @@ ul { list-style: none; }
   background-size: cover;
   background-position: center;
   opacity: 0;
-  transition: opacity 0.8s ease;
+  visibility: hidden;
+  transition: opacity 0.8s ease, visibility 0.8s;
   display: flex;
   align-items: center;
 }
 
 .hero-slide.active {
   opacity: 1;
+  visibility: visible;
+  z-index: 10;
 }
 
 .hero-slide-content {
@@ -1426,7 +1429,7 @@ select.form-input {
 }
 
 @media (max-width: 768px) {
-  .hero-carousel { height: 350px; }
+  .hero-carousel { min-height: 420px; }
   .hero-slide-content h1 { font-size: 2rem; }
   .hero-slide-content p { font-size: 0.95rem; }
   .hero-slide-content { padding: 0 20px; }
@@ -1449,7 +1452,7 @@ select.form-input {
 }
 
 @media (max-width: 480px) {
-  .hero-carousel { height: 280px; }
+  .hero-carousel { min-height: 480px; }
   .hero-slide-content h1 { font-size: 1.6rem; }
   .category-grid { grid-template-columns: repeat(3, 1fr); gap: 8px; }
   .category-card { padding: 16px 8px; font-size: 0.8rem; }
