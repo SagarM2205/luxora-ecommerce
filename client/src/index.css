@@ -1644,6 +1644,14 @@ select.form-input {
   transition: background 0.3s ease;
 }
 
+/* ─── PROFILE PAGE ─────────────────────────────────── */
+.profile-layout {
+  display: grid;
+  grid-template-columns: 220px 1fr;
+  gap: 32px;
+  align-items: start;
+}
+
 /* ─── MOBILE: hide navbar search ───────────────────── */
 /* ─── COMPREHENSIVE RESPONSIVE DESIGN (MOBILE) ───────────── */
 @media (max-width: 992px) {
@@ -1662,7 +1670,8 @@ select.form-input {
   }
   .product-split,
   .cart-split,
-  .checkout-container {
+  .checkout-container,
+  .profile-layout {
     grid-template-columns: 1fr;
   }
   .admin-charts {

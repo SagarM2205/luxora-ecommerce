@@ -75,7 +75,7 @@ export default function Profile() {
         </div>
       </div>
 
-      <div style={{ display: 'grid', gridTemplateColumns: '220px 1fr', gap: '32px', alignItems: 'start' }}>
+      <div className="profile-layout">
         {/* ── Sidebar Tabs ── */}
         <div className="card" style={{ padding: '8px', position: 'sticky', top: '100px' }}>
           {[
