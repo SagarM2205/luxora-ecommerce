@@ -14,7 +14,7 @@ export default function Wishlist() {
   const fetchWishlist = async () => {
     try {
       const { data } = await api.get('/wishlist');
-      setWishlist(data.wishlist.items || []);
+      setWishlist(data.wishlist.products || []);
     } catch (err) {
       console.error('Failed to load wishlist', err);
     } finally {
@@ -29,7 +29,7 @@ export default function Wishlist() {
   const removeFromWishlist = async (productId) => {
     try {
       await api.delete(`/wishlist/${productId}`);
-      setWishlist(wishlist.filter(item => item.product._id !== productId));
+      setWishlist(wishlist.filter(product => product._id !== productId));
       toast.success('Removed from wishlist');
     } catch (err) {
       toast.error('Failed to remove item');
@@ -68,18 +68,18 @@ export default function Wishlist() {
       <h1 style={{ marginBottom: '32px' }}>My Wishlist ({wishlist.length})</h1>
 
       <div className="product-grid">
-        {wishlist.map((item) => (
-          <div key={item.product._id} className="card product-card" style={{ position: 'relative' }}>
+        {wishlist.map((product) => (
+          <div key={product._id} className="card product-card" style={{ position: 'relative' }}>
             <img 
               className="product-image" 
-              src={item.product.images?.[0] || 'https://placehold.co/500x500/png'} 
-              alt={item.product.name} 
+              src={product.images?.[0] || 'https://placehold.co/500x500/png'} 
+              alt={product.name} 
               style={{ paddingBottom: '0' }}
             />
             
             <button 
               className="wishlist-btn active" 
-              onClick={() => removeFromWishlist(item.product._id)}
+              onClick={() => removeFromWishlist(product._id)}
               style={{ zIndex: 10 }}
               title="Remove from wishlist"
             >
@@ -87,22 +87,22 @@ export default function Wishlist() {
             </button>
 
             <div className="product-info">
-              <div className="product-brand">{item.product.brand}</div>
-              <Link to={`/products/${item.product._id}`} className="product-name" style={{ display: 'block', marginBottom: '8px' }}>
-                {item.product.name}
+              <div className="product-brand">{product.brand}</div>
+              <Link to={`/products/${product._id}`} className="product-name" style={{ display: 'block', marginBottom: '8px' }}>
+                {product.name}
               </Link>
 
               <div className="product-price" style={{ marginBottom: '16px' }}>
-                <span className="price-current">{formatPrice(item.product.price)}</span>
-                <span className="price-mrp">{formatPrice(item.product.mrp)}</span>
+                <span className="price-current">{formatPrice(product.price)}</span>
+                <span className="price-mrp">{formatPrice(product.mrp)}</span>
               </div>
 
               <button 
                 className="btn btn-primary btn-full btn-sm"
-                onClick={() => handleMoveToCart(item.product)}
-                disabled={item.product.stock <= 0}
+                onClick={() => handleMoveToCart(product)}
+                disabled={product.stock <= 0}
               >
-                <ShoppingBag size={16} /> {item.product.stock > 0 ? 'Move to Cart' : 'Out of Stock'}
+                <ShoppingBag size={16} /> {product.stock > 0 ? 'Move to Cart' : 'Out of Stock'}
               </button>
             </div>
           </div>
