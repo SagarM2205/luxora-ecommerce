@@ -262,6 +262,37 @@ exports.getDashboardStats = async (req, res, next) => {
     const totalProducts = await Product.countDocuments();
     const recentOrders = await Order.find().sort({ createdAt: -1 }).limit(10).populate('user', 'name');
 
+    // Generate Chart Data: Sales over last 7 days
+    const salesData = [...Array(7)].map((_, i) => {
+      const d = new Date();
+      d.setDate(d.getDate() - (6 - i));
+      return { 
+        name: d.toLocaleDateString('en-US', { month: 'short', day: 'numeric' }), 
+        revenue: 0 
+      };
+    });
+
+    orders.forEach(order => {
+      if (['confirmed', 'processing', 'shipped', 'delivered'].includes(order.status)) {
+        const orderDateStr = new Date(order.createdAt).toLocaleDateString('en-US', { month: 'short', day: 'numeric' });
+        const dayMatch = salesData.find(d => d.name === orderDateStr);
+        if (dayMatch) {
+          dayMatch.revenue += order.totalPrice;
+        }
+      }
+    });
+
+    // Generate Chart Data: Order Status breakdown
+    const orderStatusCount = orders.reduce((acc, order) => {
+      acc[order.status] = (acc[order.status] || 0) + 1;
+      return acc;
+    }, {});
+    
+    const orderStatusData = Object.keys(orderStatusCount).map(key => ({
+      name: key.charAt(0).toUpperCase() + key.slice(1),
+      value: orderStatusCount[key]
+    }));
+
     res.json({
       success: true,
       stats: {
@@ -271,7 +302,9 @@ exports.getDashboardStats = async (req, res, next) => {
         totalUsers,
         totalProducts
       },
-      recentOrders
+      recentOrders,
+      salesData,
+      orderStatusData
     });
   } catch (error) {
     next(error);
