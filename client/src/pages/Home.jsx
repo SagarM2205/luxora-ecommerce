@@ -9,21 +9,21 @@ const HERO_SLIDES = [
   {
     title: 'Summer\nCollection',
     subtitle: 'Up to 50% off on trending styles. Shop the season\'s hottest looks.',
-    image: 'https://images.unsplash.com/photo-1483985988355-763728e1935b?w=1400&auto=format&fit=crop',
+    image: 'https://images.unsplash.com/photo-1515886657613-9f3515b0c78f?auto=format&fit=crop',
     link: '/products?category=Women',
     tag: 'New Arrivals'
   },
   {
     title: "Men's\nEssentials",
     subtitle: 'Classic styles crafted for the modern man. Timeless, effortless.',
-    image: 'https://images.unsplash.com/photo-1490114538077-0a7f8cb49891?w=1400&auto=format&fit=crop',
+    image: 'https://images.unsplash.com/photo-1617137968427-85924c800a22?auto=format&fit=crop',
     link: '/products?category=Men',
     tag: 'Men\'s Edit'
   },
   {
     title: 'Ethnic\nWear',
     subtitle: 'Celebrate traditions in style. Curated collections for every occasion.',
-    image: 'https://images.unsplash.com/photo-1610030469983-98e550d6193c?w=1400&auto=format&fit=crop',
+    image: 'https://images.unsplash.com/photo-1604004555489-723a93d6ce74?auto=format&fit=crop',
     link: '/products?category=Ethnic',
     tag: 'Festive Season'
   }
