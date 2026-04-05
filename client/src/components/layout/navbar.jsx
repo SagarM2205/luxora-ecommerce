@@ -1,6 +1,6 @@
 import { useState, useRef, useEffect } from 'react';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
-import { ShoppingCart, Heart, Sun, Moon, LogOut, LayoutDashboard, User, Search, Bell } from 'lucide-react';
+import { ShoppingCart, ShoppingBag, Heart, Sun, Moon, LogOut, LayoutDashboard, User, Search, Bell } from 'lucide-react';
 import useAuthStore from '../../store/useAuthStore';
 import useCartStore from '../../store/useCartStore';
 import useThemeStore from '../../store/useThemeStore';
@@ -56,7 +56,7 @@ export default function Navbar() {
 
         <div className="navbar-links">
           <Link to="/products" className={isActive('/products')}>
-            <ShoppingCart size={18} /> <span>Shop</span>
+            <ShoppingBag size={18} /> <span>Shop</span>
           </Link>
 
           {isAuthenticated ? (
