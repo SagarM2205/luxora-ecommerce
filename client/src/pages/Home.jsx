@@ -114,7 +114,7 @@ export default function Home() {
               <span className="hero-tag">{slide.tag}</span>
               <h1 style={{ whiteSpace: 'pre-line' }}>{slide.title}</h1>
               <p>{slide.subtitle}</p>
-              <div style={{ display: 'flex', gap: '16px', flexWrap: 'wrap' }}>
+              <div className="hero-buttons" style={{ display: 'flex', gap: '16px', flexWrap: 'wrap' }}>
                 <Link to={slide.link} className="btn btn-primary btn-lg">
                   Shop Now <ArrowRight size={20} />
                 </Link>

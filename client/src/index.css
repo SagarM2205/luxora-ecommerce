@@ -1650,8 +1650,12 @@ select.form-input {
     height: auto;
     text-align: center;
   }
-  .hero-content {
+  .hero-slide-content {
     align-items: center;
+    text-align: center;
+  }
+  .hero-buttons {
+    justify-content: center;
   }
   .product-split,
   .cart-split,
