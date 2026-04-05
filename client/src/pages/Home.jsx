@@ -108,8 +108,12 @@ export default function Home() {
           <div
             key={index}
             className={`hero-slide ${index === currentSlide ? 'active' : ''}`}
-            style={{ backgroundImage: `linear-gradient(to right, rgba(0,0,0,0.75) 0%, rgba(0,0,0,0.4) 50%, rgba(0,0,0,0.1) 100%), url(${slide.image})` }}
           >
+            <picture className="hero-slide-bg">
+              <source media="(max-width: 768px)" srcSet={`${slide.image}&w=800&h=1200&crop=focalpoint&fp-y=0.2`} />
+              <img src={`${slide.image}&w=1600&h=700&crop=focalpoint&fp-y=0.3`} alt={slide.tag} />
+            </picture>
+            <div className="hero-slide-overlay" />
             <div className="hero-slide-content">
               <span className="hero-tag">{slide.tag}</span>
               <h1 style={{ whiteSpace: 'pre-line' }}>{slide.title}</h1>
